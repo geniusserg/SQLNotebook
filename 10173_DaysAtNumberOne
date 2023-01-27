@@ -1,0 +1,18 @@
+/*
+
+https://platform.stratascratch.com/coding/10173-days-at-number-one?code_type=1
+https://www.youtube.com/watch?v=93quPoReV1M
+
+*/
+
+
+select trackname, COUNT(trackname)
+from 
+(select spotify_daily_rankings_2017_us.trackname, spotify_daily_rankings_2017_us.date, spotify_daily_rankings_2017_us.position us, spotify_daily_rankings_2017_us.position wrld
+from spotify_daily_rankings_2017_us
+join spotify_worldwide_daily_song_ranking
+on spotify_worldwide_daily_song_ranking.trackname = spotify_daily_rankings_2017_us.trackname and spotify_worldwide_daily_song_ranking.date = spotify_daily_rankings_2017_us.date ) tmp
+where us = wrld
+and us = 1
+group by trackname
+
