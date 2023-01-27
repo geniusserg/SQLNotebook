@@ -1,0 +1,12 @@
+/*
+
+https://platform.stratascratch.com/coding/10353-workers-with-the-highest-salaries?tabname=solutions
+
+*/
+
+select worker_title
+from
+(select worker_id, salary, MAX(salary) OVER() as max_salary from worker ) tmp
+join title
+on tmp.worker_id = title.worker_ref_id
+where tmp.max_salary = tmp.salary
