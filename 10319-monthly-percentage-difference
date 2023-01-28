@@ -1,0 +1,14 @@
+/*
+https://platform.stratascratch.com/coding/10319-monthly-percentage-difference?code_type=1
+
+http://2sql.ru/novosti/sql-round/
+https://www.sqlshack.com/sql-lag-function-overview-and-examples/
+https://stackoverflow.com/a/12052835/13883555
+
+*/
+
+
+select date, round((currval-lastval)*100/lastval, 2) as revenue_diff_pct from
+    (select date, lag(value, 1, null) over() as lastval, value as currval from
+        (select  to_char(created_at, 'yyyy-mm') as date, SUM(value) as value from sf_transactions
+        group by date order by date) month_sales) month_diff
